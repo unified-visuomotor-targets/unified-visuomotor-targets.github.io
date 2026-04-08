@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Unified Visuomotor Targets: Supervising VLAs Beyond Physical Actions</title>
+  <meta name="description" content="Unified Visuomotor Targets: Supervising VLAs Beyond Physical Actions">
+  <meta name="keywords" content="UVT, VLA, Vision-Language-Action, Robot Manipulation, Latent Action Model">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Unified Visuomotor Targets: Supervising VLAs Beyond Physical Actions">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Unified Visuomotor Targets">
+  <meta property="og:image" content="static/images/teaser.png" />
+  <meta property="og:description" content="UVT constructs a unified prediction target that fuses robot actions with visual dynamics codes, improving VLA training efficiency without architectural changes." />
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+</head>
+
+<body>
+
+  <!-- ==================== HERO / TITLE ==================== -->
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Unified Visuomotor Targets:<br>
+              <span style="font-size:2.2rem;">Supervising VLAs Beyond Physical Actions</span>
+            </h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="#">Daniel Feng</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="#">Unnat Jain</a><sup>1</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>University of California, Irvine</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link -->
+                <span class="link-block">
+                  <a href="#" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <!-- Code Link -->
+                <span class="link-block">
+                  <a href="https://github.com/DeFisch/UVT" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+                <!-- Video Link -->
+                <span class="link-block">
+                  <a href="#talk-video" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>Video</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TEASER ==================== -->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <div class="has-text-centered">
+          <img src="static/images/teaser.png" style="max-width: 55%;" alt="UVT Teaser" />
+        </div>
+        <h2 class="subtitle has-text-centered" style="margin-top: 1.5rem;">
+          <b>Unified Visuomotor Target (UVT) Training.</b>
+          Instead of supervising VLA policies with raw robot actions alone,
+          we construct a unified visuomotor target <i>u<sub>t</sub></i> that fuses continuous
+          robot actions <i>a<sub>t</sub></i> with discrete dynamics codes <i>z<sub>t</sub></i> from a pretrained
+          latent action model. UVT requires <b>no architectural changes</b> and <b>no additional data</b>,
+          yet accelerates training by up to 2x and improves policy performance across simulation and real-world tasks.
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ABSTRACT ==================== -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3 has-text-centered">Abstract</h2>
+          <div class="content has-text-justified abstract-text">
+            <p>
+              Vision-Language-Action (VLA) models have become a practical framework for robot manipulation,
+              leveraging pretrained vision-language models (VLMs) as multimodal backbones that map image
+              observations and language instructions to robot actions. While recent work has improved action
+              tokenization formats, the question of <i>what information</i> the prediction target should encode has
+              received comparatively little attention. Joint positions and Cartesian poses are low-level,
+              embodiment-specific signals that encode limited information about task context, creating a
+              mismatch with the rich structure VLMs extract from visual and language inputs.
+            </p>
+            <p>
+              We propose <b>UVT (Unified Visuomotor Target)</b>, a structured prediction target for VLA
+              fine-tuning that integrates robot actions with discrete dynamics codes from a pretrained
+              Latent Action Model (LAM). For each training sample, we construct a compact latent
+              <i>u<sub>t</sub></i> &isin; &real;<sup>32</sup> that jointly encodes the action chunk and discrete
+              dynamics code via a lightweight multimodal VAE. During VLA fine-tuning, the policy predicts
+              <i>u<sub>t</sub></i> instead of raw actions, and a trainable decoder maps the predicted latent
+              to executable action chunks. Because <i>u<sub>t</sub></i> encodes both <b>motor control</b> and
+              <b>visual transition dynamics</b>, it is more consistent with the task structure that VLMs already
+              extract from image and language inputs.
+            </p>
+            <p>
+              UVT requires no architectural changes, no additional data, and no modification to the training
+              schedule. We evaluate on VLA-Adapter (regression head) and &pi;<sub>0.5</sub> (diffusion/flow head)
+              across LIBERO, LIBERO-Plus, and real bimanual manipulation tasks. UVT consistently improves
+              convergence speed, final task performance, and policy robustness, with particularly strong gains
+              under limited training budgets.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TALK VIDEO PLACEHOLDER ==================== -->
+  <section class="section" id="talk-video">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Presentation</h2>
+      <div class="video-placeholder">
+        <i class="fas fa-video"></i>
+        <p><b>10-Minute Presentation Talk</b></p>
+        <p style="font-size: 0.95rem; color: #aaa;">Coming soon</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== METHOD ==================== -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Method</h2>
+
+          <div class="content has-text-justified method-figure">
+            <h3 class="title is-4">Unified Visuomotor Target Construction</h3>
+            <img src="static/images/mvae_diagram_v2.png" alt="UVT Architecture" />
+            <p>
+              <b>Unified Visuomotor Target <i>u<sub>t</sub></i> Training Architecture.</b>
+              A pretrained latent action model (LAM) extracts discrete dynamics codes <i>z<sub>t</sub></i>
+              from image pairs, while ground-truth robot actions
+              <i>a<sub>t</sub></i> &isin; &real;<sup>k&times;d</sup>
+              provide continuous supervision. Two trainable encoders map <i>a<sub>t</sub></i> and <i>z<sub>t</sub></i>
+              to Gaussian posteriors, which are fused via a weighted Product-of-Experts to produce the
+              unified visuomotor target <i>u<sub>t</sub></i> &isin; &real;<sup>32</sup>.
+              The target is decoded to reconstruct both robot actions and discrete dynamics codes,
+              while a KL divergence loss regularizes <i>u<sub>t</sub></i> toward a standard normal prior.
+            </p>
+          </div>
+
+          <div class="content has-text-justified">
+            <h3 class="title is-4">UVT for VLA Imitation Learning</h3>
+            <p>
+              After training the multimodal VAE, we precompute <i>u<sub>t</sub></i> for all training samples.
+              During VLA fine-tuning, the policy predicts <i>&ucirc;<sub>t</sub></i> from multimodal input
+              and is supervised with a combined objective:
+            </p>
+            <p style="text-align: center; font-size: 1.1rem; margin: 1rem 0;">
+              <b>L<sub>VLA</sub> = || &ucirc;<sub>t</sub> - u<sub>t</sub> ||<sup>2</sup> + &gamma; || &acirc;<sub>t</sub> - a<sub>t</sub> ||<sub>1</sub></b>
+            </p>
+            <p>
+              This loss anchors the policy's internal representation to the unified visuomotor target space
+              while ensuring decoded outputs remain consistent with executable joint commands.
+              The modification changes <b>only the prediction target and loss</b> &mdash; the backbone VLA
+              architecture remains unchanged, making UVT compatible with both regression-style and
+              diffusion-based VLA policies.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== EXPERIMENTS ==================== -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Experiments</h2>
+
+          <!-- Benchmarks Overview -->
+          <h3 class="title is-4">Simulation Benchmarks</h3>
+          <div class="content has-text-centered">
+            <img src="static/images/libero_suites.png" alt="LIBERO Benchmark Suites" style="max-width: 95%;" />
+            <p class="has-text-justified">
+              <b>LIBERO benchmark suites.</b> The four suites &mdash; Object, Spatial, Goal, and Long &mdash; each
+              include distinct manipulation challenges. LIBERO-Plus provides additional environmental
+              perturbations to test model robustness.
+            </p>
+          </div>
+
+          <br>
+
+          <!-- Training Efficiency -->
+          <h3 class="title is-4">Training Efficiency</h3>
+          <div class="content has-text-justified">
+            <p>
+              We compare success rates at 10k and 100k training steps across LIBERO and LIBERO-Plus.
+              UVT achieves significantly faster performance gains under limited computation,
+              especially on the more challenging LIBERO-Plus benchmark.
+            </p>
+          </div>
+          <div class="content">
+            <table class="results-table">
+              <thead>
+                <tr>
+                  <th rowspan="2">Environment</th>
+                  <th rowspan="2">Method</th>
+                  <th colspan="2" class="header-group">Object</th>
+                  <th colspan="2" class="header-group">Spatial</th>
+                  <th colspan="2" class="header-group">Goal</th>
+                  <th colspan="2" class="header-group">Long</th>
+                  <th colspan="2" class="header-group">Avg.</th>
+                </tr>
+                <tr>
+                  <th>10k</th><th>100k</th>
+                  <th>10k</th><th>100k</th>
+                  <th>10k</th><th>100k</th>
+                  <th>10k</th><th>100k</th>
+                  <th>10k</th><th>100k</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td rowspan="2">LIBERO</td>
+                  <td>VLA-Adapter</td>
+                  <td>93.4</td><td>97.6</td>
+                  <td>78.8</td><td>96.2</td>
+                  <td>90.4</td><td>95.6</td>
+                  <td>56.2</td><td>89.0</td>
+                  <td>79.7</td><td>94.6</td>
+                </tr>
+                <tr class="ours-row">
+                  <td><b>UVT (Ours)</b></td>
+                  <td><b>94.0</b></td><td><b>99.6</b></td>
+                  <td><b>95.0</b></td><td><b>98.6</b></td>
+                  <td><b>95.0</b></td><td><b>97.2</b></td>
+                  <td><b>68.8</b></td><td><b>91.2</b></td>
+                  <td><b>88.2</b></td><td><b>96.7</b></td>
+                </tr>
+                <tr>
+                  <td rowspan="2">LIBERO-Plus</td>
+                  <td>VLA-Adapter</td>
+                  <td><b>52.7</b></td><td>58.3</td>
+                  <td>34.0</td><td>86.8</td>
+                  <td>42.3</td><td>72.4</td>
+                  <td>41.7</td><td>64.3</td>
+                  <td>42.7</td><td>70.5</td>
+                </tr>
+                <tr class="ours-row">
+                  <td><b>UVT (Ours)</b></td>
+                  <td>52.4</td><td><b>60.4</b></td>
+                  <td><b>81.5</b></td><td><b>87.2</b></td>
+                  <td><b>67.8</b></td><td><b>74.7</b></td>
+                  <td><b>63.0</b></td><td><b>72.1</b></td>
+                  <td><b>66.2</b></td><td><b>73.6</b></td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="has-text-centered" style="font-size:0.9rem; color:#666;">
+              At 10k steps on LIBERO-Plus Spatial, UVT achieves <b>81.5%</b> vs. baseline's <b>34.0%</b> &mdash;
+              a <span class="improvement">+47.5%</span> improvement under identical training budgets.
+            </p>
+          </div>
+
+          <br>
+
+          <!-- Benchmark Results -->
+          <h3 class="title is-4">Benchmark Results (100k Steps)</h3>
+          <div class="content has-text-justified">
+            <p>
+              UVT consistently improves performance over baselines across different VLA architectures
+              without increasing model size, demonstrating compatibility with both regression-style
+              (VLA-Adapter) and diffusion-based (&pi;<sub>0.5</sub>) policies.
+            </p>
+          </div>
+          <div class="content">
+            <table class="results-table" style="max-width: 700px; margin: 0 auto;">
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>Object</th>
+                  <th>Spatial</th>
+                  <th>Goal</th>
+                  <th>Long</th>
+                  <th>Avg.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>VLA-Adapter</td>
+                  <td>97.6</td><td>96.2</td><td>95.6</td><td>89.0</td><td>94.6</td>
+                </tr>
+                <tr>
+                  <td>&pi;<sub>0.5</sub></td>
+                  <td>97.8</td><td>98.4</td><td><b>98.0</b></td><td>90.6</td><td>96.2</td>
+                </tr>
+                <tr class="ours-row">
+                  <td><b>UVT (VLA-Adapter)</b></td>
+                  <td><b>99.6</b></td><td><b>98.6</b></td><td>97.2</td><td>91.2</td><td>96.7</td>
+                </tr>
+                <tr class="ours-row">
+                  <td><b>UVT (&pi;<sub>0.5</sub>)</b></td>
+                  <td>99.0</td><td>98.4</td><td>97.8</td><td><b>92.4</b></td><td><b>96.9</b></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <br>
+
+          <!-- Real World -->
+          <h3 class="title is-4">Real-World Bimanual Manipulation</h3>
+          <div class="content has-text-centered">
+            <img src="static/images/real_robot_setup.png" alt="Real Robot Setup" style="max-width: 95%;" />
+            <p class="has-text-justified">
+              <b>Real-world evaluation platform.</b> Two robot arms perform three tabletop tasks: Lift Pot,
+              Close Marker, and Plate Handover, each testing different aspects of dual-arm coordination.
+              For each task, we collect 30 demonstrations, fine-tune for 10 GPU hours, and run 50 evaluation trials.
+            </p>
+          </div>
+
+          <br>
+
+          <!-- Real robot results table -->
+          <div class="content">
+            <table class="results-table" style="max-width: 650px; margin: 0 auto;">
+              <thead>
+                <tr>
+                  <th>Task</th>
+                  <th>Method</th>
+                  <th># Succ</th>
+                  <th># Half</th>
+                  <th>Rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="task-lift-pot">
+                  <td rowspan="2">Lift Pot</td>
+                  <td>VLA-Adapter</td>
+                  <td>19</td><td>&mdash;</td><td>38.0%</td>
+                </tr>
+                <tr class="task-lift-pot ours-row">
+                  <td><b>UVT</b></td>
+                  <td><b>27</b></td><td>&mdash;</td><td><b>54.0%</b></td>
+                </tr>
+                <tr class="task-close-marker">
+                  <td rowspan="2">Close Marker</td>
+                  <td>VLA-Adapter</td>
+                  <td>0</td><td>0</td><td>0%</td>
+                </tr>
+                <tr class="task-close-marker ours-row">
+                  <td><b>UVT</b></td>
+                  <td>0</td><td><b>26</b></td><td><b>26%</b></td>
+                </tr>
+                <tr class="task-plate-handover">
+                  <td rowspan="2">Plate Handover</td>
+                  <td>VLA-Adapter</td>
+                  <td>7</td><td>4</td><td>18%</td>
+                </tr>
+                <tr class="task-plate-handover ours-row">
+                  <td><b>UVT</b></td>
+                  <td><b>12</b></td><td><b>16</b></td><td><b>40%</b></td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="has-text-centered" style="font-size:0.9rem; color:#666; margin-top:0.5rem;">
+              UVT yields a <span class="improvement">2.2x</span> improvement on Plate Handover
+              and enables grasping on Close Marker where the baseline achieves 0% success.
+            </p>
+          </div>
+
+          <br>
+
+          <!-- Task explainer figures -->
+          <h3 class="title is-4">Task Demonstrations</h3>
+
+          <div class="columns is-multiline">
+            <div class="column is-one-third">
+              <div class="experiment-card">
+                <img src="static/images/lift_pot_exp_explainer.png" alt="Lift Pot Task" />
+              </div>
+            </div>
+            <div class="column is-one-third">
+              <div class="experiment-card">
+                <img src="static/images/close_marker_exp_explainer.png" alt="Close Marker Task" />
+              </div>
+            </div>
+            <div class="column is-one-third">
+              <div class="experiment-card">
+                <img src="static/images/plate_handover_exp_explainer.png" alt="Plate Handover Task" />
+              </div>
+            </div>
+          </div>
+
+          <div class="content has-text-centered" style="margin-top: 1rem;">
+            <p><b>Real-world experiment video overview:</b></p>
+            <video autoplay controls muted loop playsinline width="90%">
+              <source src="static/videos/real_life_exp_explainer.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <br>
+
+          <!-- Rollout Frames -->
+          <h3 class="title is-4">Example Policy Rollouts</h3>
+          <div class="content has-text-centered">
+            <img src="static/images/rollout_frames.png" alt="Rollout Frames" style="max-width:95%;" />
+            <p class="has-text-justified">
+              <b>Sample keyframes from UVT-based VLA-Adapter policy executions</b> on a real-world task
+              (Plate Handover) and a simulation task from LIBERO-Goal.
+            </p>
+          </div>
+
+          <br>
+
+          <!-- Ablation -->
+          <h3 class="title is-4">Ablation Study</h3>
+          <div class="content has-text-justified">
+            <p>
+              We compare alternative ways of incorporating discrete dynamics codes into VLA training.
+              Simply adding an auxiliary dynamics prediction head provides moderate gains, but fusing
+              both signals into a unified target via UVT yields substantially stronger improvements.
+            </p>
+          </div>
+          <div class="content">
+            <table class="results-table" style="max-width: 500px; margin: 0 auto;">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>@ 10k steps</th>
+                  <th>@ 100k steps</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>VLA-Adapter</td>
+                  <td>78.8</td><td>96.2</td>
+                </tr>
+                <tr>
+                  <td>w/ Villa-X head</td>
+                  <td>83.2</td><td>96.8</td>
+                </tr>
+                <tr>
+                  <td>w/ UniVLA head</td>
+                  <td>86.4</td><td>95.8</td>
+                </tr>
+                <tr class="ours-row">
+                  <td><b>UVT (Ours)</b></td>
+                  <td><b>95.0</b></td><td><b>98.6</b></td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="has-text-centered" style="font-size:0.9rem; color:#666; margin-top:0.5rem;">
+              Ablation on LIBERO-Spatial. Independent heads supervise separate outputs but do not enforce
+              interaction between motor and dynamics representations. UVT encodes both jointly.
+            </p>
+          </div>
+
+          <br>
+
+          <!-- Latent Analysis -->
+          <h3 class="title is-4">Latent Representation Analysis</h3>
+
+          <div class="content has-text-centered">
+            <img src="static/images/tsne_all_suites.png" alt="t-SNE Visualization" style="max-width: 90%;" />
+            <p class="has-text-justified">
+              <b>t-SNE visualization of unified visuomotor target <i>u<sub>t</sub></i> and raw robot action
+              <i>a<sub>t</sub></i>.</b> Compared to raw robot actions, the unified visuomotor target exhibits
+              more structured and smoothly organized embeddings across LIBERO suites. Even without suite
+              information during training, the latent naturally groups actions from the same suite together,
+              suggesting a more semantically consistent representation of task dynamics.
+            </p>
+          </div>
+
+          <br>
+
+          <div class="content has-text-centered">
+            <img src="static/images/ut_at_smoothness.png" alt="Action Smoothness" style="max-width: 80%;" />
+            <p class="has-text-justified">
+              <b>Temporal profiles of decoded and raw action trajectories.</b> Robot actions decoded from
+              sampled <i>u<sub>t</sub></i> are noticeably smoother, exhibiting fewer high-frequency
+              fluctuations while preserving the overall motion trend. This suggests that the learned
+              <i>u<sub>t</sub></i> captures underlying motion dynamics while filtering out low-level
+              actuator noise.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== BIBTEX ==================== -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@article{feng2025uvt,
+    title={Unified Visuomotor Targets: Supervising VLAs Beyond Physical Actions},
+    author={Daniel Feng and Unnat Jain},
+    year={2025},
+}</code></pre>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a>
+              under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons
+              Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>

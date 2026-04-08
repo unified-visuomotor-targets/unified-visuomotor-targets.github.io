@@ -1,0 +1,215 @@
+/* Nerfies-style project page CSS */
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.footer .icon-link {
+  font-size: 25px;
+  color: #000;
+}
+
+.link-block a {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.publication-title {
+  font-family: 'Google Sans', sans-serif;
+}
+
+.publication-authors {
+  font-family: 'Google Sans', sans-serif;
+}
+
+.publication-venue {
+  color: #555;
+  font-weight: bold;
+  font-family: 'Google Sans', sans-serif;
+}
+
+.publication-awards {
+  color: #ff3860;
+  font-weight: bolder;
+  font-family: 'Google Sans', sans-serif;
+}
+
+.publication-links {
+  margin-top: 10px;
+}
+
+.hero-body .container {
+  max-width: 960px;
+}
+
+.teaser .hero-body {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+.teaser-video .hero-body {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.results-carousel {
+  overflow: hidden;
+}
+
+.results-carousel .item {
+  margin: 5px;
+  overflow: hidden;
+  padding: 20px;
+  font-size: 0;
+}
+
+.results-carousel video {
+  margin: 0;
+}
+
+#overlay {
+  font-size: 1.0rem;
+  margin: 0;
+  padding: 5px;
+}
+
+/* Custom table styling */
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+
+.results-table th,
+.results-table td {
+  padding: 8px 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.results-table th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+  border-bottom: 2px solid #333;
+}
+
+.results-table td:first-child,
+.results-table th:first-child {
+  text-align: left;
+}
+
+.results-table tr:hover {
+  background-color: #fafafa;
+}
+
+.results-table .best {
+  font-weight: 700;
+}
+
+.results-table .ours-row {
+  background-color: #fff8e1;
+}
+
+.results-table .header-group {
+  border-bottom: 1px solid #999;
+}
+
+/* Color-coded task rows for real robot table */
+.task-lift-pot {
+  background-color: rgba(242, 215, 199, 0.5);
+}
+
+.task-close-marker {
+  background-color: rgba(196, 208, 224, 0.5);
+}
+
+.task-plate-handover {
+  background-color: rgba(212, 190, 211, 0.5);
+}
+
+/* Section spacing */
+.section {
+  padding: 3rem 1.5rem;
+}
+
+/* Video placeholder styling */
+.video-placeholder {
+  background: #f0f0f0;
+  border: 3px dashed #ccc;
+  border-radius: 12px;
+  padding: 60px 20px;
+  text-align: center;
+  color: #888;
+  margin: 1rem 0;
+}
+
+.video-placeholder i {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  display: block;
+  color: #bbb;
+}
+
+.video-placeholder p {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+/* Interpolation panel for side-by-side content */
+.interpolation-panel {
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+/* Improvement badge */
+.improvement {
+  color: #e74c3c;
+  font-weight: 700;
+}
+
+/* Method figure */
+.method-figure img {
+  border-radius: 4px;
+}
+
+/* Abstract text */
+.abstract-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* Real robot experiment cards */
+.experiment-card {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 1.5rem;
+}
+
+.experiment-card img {
+  width: 100%;
+  display: block;
+}
+
+/* BibTeX code block */
+#BibTeX pre {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.85rem;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .results-table {
+    font-size: 0.8rem;
+  }
+
+  .results-table th,
+  .results-table td {
+    padding: 6px 8px;
+  }
+}
