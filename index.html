@@ -311,6 +311,31 @@
 
           <br>
 
+          <!-- Real-world experiment video (moved before explainer figures) -->
+          <div class="content has-text-centered" style="margin-top: 1rem;">
+            <p><b>Real-world experiment video overview:</b></p>
+            <video autoplay controls muted loop playsinline width="90%">
+              <source src="static/videos/real_life_exp_explainer.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <br>
+
+          <!-- Task explainer figures (moved before results table) -->
+          <h3 class="title is-4">Task Demonstrations</h3>
+
+          <div class="experiment-card" style="margin-bottom: 1.5rem;">
+            <img src="static/images/lift_pot_exp_explainer.png" alt="Lift Pot Task" style="width: 100%;" />
+          </div>
+          <div class="experiment-card" style="margin-bottom: 1.5rem;">
+            <img src="static/images/close_marker_exp_explainer.png" alt="Close Marker Task" style="width: 100%;" />
+          </div>
+          <div class="experiment-card" style="margin-bottom: 1.5rem;">
+            <img src="static/images/plate_handover_exp_explainer.png" alt="Plate Handover Task" style="width: 100%;" />
+          </div>
+
+          <br>
+
           <!-- Real robot results table -->
           <div class="content">
             <table class="results-table" style="max-width: 650px; margin: 0 auto;">
@@ -356,40 +381,6 @@
             <p class="has-text-centered" style="font-size:0.9rem; color:#666; margin-top:0.5rem;">
               UVT yields a <span class="improvement">2.2x</span> improvement on Plate Handover
               and enables grasping on Close Marker where the baseline achieves 0% success.
-            </p>
-          </div>
-
-          <br>
-
-          <!-- Task explainer figures -->
-          <h3 class="title is-4">Task Demonstrations</h3>
-
-          <div class="experiment-card" style="margin-bottom: 1.5rem;">
-            <img src="static/images/lift_pot_exp_explainer.png" alt="Lift Pot Task" style="width: 100%;" />
-          </div>
-          <div class="experiment-card" style="margin-bottom: 1.5rem;">
-            <img src="static/images/close_marker_exp_explainer.png" alt="Close Marker Task" style="width: 100%;" />
-          </div>
-          <div class="experiment-card" style="margin-bottom: 1.5rem;">
-            <img src="static/images/plate_handover_exp_explainer.png" alt="Plate Handover Task" style="width: 100%;" />
-          </div>
-
-          <div class="content has-text-centered" style="margin-top: 1rem;">
-            <p><b>Real-world experiment video overview:</b></p>
-            <video autoplay controls muted loop playsinline width="90%">
-              <source src="static/videos/real_life_exp_explainer.mp4" type="video/mp4">
-            </video>
-          </div>
-
-          <br>
-
-          <!-- Rollout Frames -->
-          <h3 class="title is-4">Example Policy Rollouts</h3>
-          <div class="content has-text-centered">
-            <img src="static/images/rollout_frames.png" alt="Rollout Frames" style="max-width:95%;" />
-            <p class="has-text-justified">
-              <b>Sample keyframes from UVT-based VLA-Adapter policy executions</b> on a real-world task
-              (Plate Handover) and a simulation task from LIBERO-Goal.
             </p>
           </div>
 
