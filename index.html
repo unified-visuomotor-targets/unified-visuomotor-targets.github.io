@@ -545,17 +545,25 @@
         return document.getElementById(id);
       }).filter(el => el !== null);
 
+      // Document-relative top of an element (offsetTop is parent-relative)
+      function getDocTop(el) {
+        return el.getBoundingClientRect().top + window.pageYOffset;
+      }
+
       function setActive(id) {
         navLinks.forEach(link => {
           link.classList.toggle('active', link.getAttribute('data-target') === id);
         });
       }
 
+      let clickLock = false;
+
       function onScroll() {
+        if (clickLock) return;
         const scrollPos = window.scrollY + window.innerHeight * 0.35;
         let current = targets[0] ? targets[0].id : null;
         for (const el of targets) {
-          if (el.offsetTop <= scrollPos) {
+          if (getDocTop(el) <= scrollPos) {
             current = el.id;
           }
         }
@@ -570,12 +578,15 @@
           e.preventDefault();
           const id = this.getAttribute('data-target');
           const target = document.getElementById(id);
-          if (target) {
-            window.scrollTo({
-              top: target.offsetTop - 20,
-              behavior: 'smooth'
-            });
-          }
+          if (!target) return;
+          // Lock scroll-driven highlight while smooth scroll runs, then re-enable
+          clickLock = true;
+          setActive(id);
+          window.scrollTo({
+            top: getDocTop(target) - 20,
+            behavior: 'smooth'
+          });
+          setTimeout(() => { clickLock = false; }, 800);
         });
       });
     });
