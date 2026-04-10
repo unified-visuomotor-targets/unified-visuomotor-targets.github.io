@@ -23,6 +23,20 @@
 
 <body>
 
+  <!-- ==================== SIDEBAR NAV ==================== -->
+  <nav class="sidebar-nav" id="sidebar-nav">
+    <div class="sidebar-title">Sections</div>
+    <ul>
+      <li><a href="#abstract" data-target="abstract">Abstract</a></li>
+      <li><a href="#method" data-target="method">Method</a></li>
+      <li><a href="#benchmarks" data-target="benchmarks">Benchmarks</a></li>
+      <li><a href="#real-world" data-target="real-world">Real-World</a></li>
+      <li><a href="#ablation" data-target="ablation">Ablation</a></li>
+      <li><a href="#analysis" data-target="analysis">Analysis</a></li>
+      <li><a href="#BibTeX" data-target="BibTeX">BibTeX</a></li>
+    </ul>
+  </nav>
+
   <!-- ==================== HERO / TITLE ==================== -->
   <section class="hero">
     <div class="hero-body">
@@ -93,7 +107,7 @@
   </section>
 
   <!-- ==================== ABSTRACT ==================== -->
-  <section class="section">
+  <section class="section" id="abstract">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column is-four-fifths">
@@ -133,7 +147,7 @@
   </section>
 
   <!-- ==================== METHOD ==================== -->
-  <section class="section">
+  <section class="section" id="method">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column is-full-width">
@@ -186,7 +200,7 @@
           <h2 class="title is-3">Experiments</h2>
 
           <!-- Benchmarks Overview -->
-          <h3 class="title is-4">Simulation Benchmarks</h3>
+          <h3 class="title is-4" id="benchmarks">Simulation Benchmarks</h3>
           <div class="content has-text-centered">
             <img src="static/images/libero_suites.png" alt="LIBERO Benchmark Suites" style="max-width: 95%;" />
             <p class="has-text-justified">
@@ -334,7 +348,7 @@
           <br>
 
           <!-- Real World -->
-          <h3 class="title is-4">Real-World Bimanual Manipulation</h3>
+          <h3 class="title is-4" id="real-world">Real-World Bimanual Manipulation</h3>
           <div class="content has-text-centered">
             <img src="static/images/real_robot_setup.png" alt="Real Robot Setup" style="max-width: 95%;" />
             <p class="has-text-justified">
@@ -422,7 +436,7 @@
           <br>
 
           <!-- Ablation -->
-          <h3 class="title is-4">Ablation Study</h3>
+          <h3 class="title is-4" id="ablation">Ablation Study</h3>
           <div class="content has-text-justified">
             <p>
               We compare alternative ways of incorporating discrete dynamics codes into VLA training.
@@ -467,7 +481,7 @@
           <br>
 
           <!-- Latent Analysis -->
-          <h3 class="title is-4">Latent Representation Analysis</h3>
+          <h3 class="title is-4" id="analysis">Latent Representation Analysis</h3>
 
           <div class="content has-text-centered">
             <img src="static/images/tsne_all_suites.png" alt="t-SNE Visualization" style="max-width: 90%;" />
@@ -522,6 +536,50 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const navLinks = document.querySelectorAll('.sidebar-nav a');
+      const targets = Array.from(navLinks).map(link => {
+        const id = link.getAttribute('data-target');
+        return document.getElementById(id);
+      }).filter(el => el !== null);
+
+      function setActive(id) {
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('data-target') === id);
+        });
+      }
+
+      function onScroll() {
+        const scrollPos = window.scrollY + window.innerHeight * 0.35;
+        let current = targets[0] ? targets[0].id : null;
+        for (const el of targets) {
+          if (el.offsetTop <= scrollPos) {
+            current = el.id;
+          }
+        }
+        if (current) setActive(current);
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const id = this.getAttribute('data-target');
+          const target = document.getElementById(id);
+          if (target) {
+            window.scrollTo({
+              top: target.offsetTop - 20,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    });
+  </script>
 
 </body>
 
