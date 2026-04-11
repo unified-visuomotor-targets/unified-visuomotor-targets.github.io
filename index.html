@@ -29,8 +29,8 @@
     <ul>
       <li><a href="#abstract" data-target="abstract">Abstract</a></li>
       <li><a href="#method" data-target="method">Method</a></li>
-      <li><a href="#benchmarks" data-target="benchmarks">Benchmarks</a></li>
       <li><a href="#real-world" data-target="real-world">Real-World</a></li>
+      <li><a href="#simulation" data-target="simulation">Simulation</a></li>
       <li><a href="#ablation" data-target="ablation">Ablation</a></li>
       <li><a href="#analysis" data-target="analysis">Analysis</a></li>
       <li><a href="#BibTeX" data-target="BibTeX">BibTeX</a></li>
@@ -199,8 +199,93 @@
         <div class="column is-full-width">
           <h2 class="title is-3">Experiments</h2>
 
-          <!-- Benchmarks Overview -->
-          <h3 class="title is-4" id="benchmarks">Simulation Benchmarks</h3>
+          <!-- ===== REAL WORLD BLOCK (moved before simulation) ===== -->
+          <h3 class="title is-4" id="real-world">Real-World Bimanual Manipulation</h3>
+          <div class="content has-text-centered">
+            <img src="static/images/real_robot_setup.png" alt="Real Robot Setup" style="max-width: 95%;" />
+            <p class="has-text-justified">
+              <b>Real-world evaluation platform.</b> Two robot arms perform three tabletop tasks: Lift Pot,
+              Close Marker, and Plate Handover, each testing different aspects of dual-arm coordination.
+              For each task, we collect 30 demonstrations, fine-tune for 10 GPU hours, and run 50 evaluation trials.
+            </p>
+          </div>
+
+          <br>
+
+          <div class="content has-text-centered" style="margin-top: 1rem;">
+            <p><b>Real-world experiment video overview:</b></p>
+            <video autoplay controls muted loop playsinline width="90%">
+              <source src="static/videos/real_life_exp_explainer.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <br>
+
+          <h3 class="title is-4">Task Demonstrations</h3>
+
+          <div class="experiment-card" style="margin-bottom: 1.5rem;">
+            <img src="static/images/lift_pot_exp_explainer.png" alt="Lift Pot Task" style="width: 100%;" />
+          </div>
+          <div class="experiment-card" style="margin-bottom: 1.5rem;">
+            <img src="static/images/close_marker_exp_explainer.png" alt="Close Marker Task" style="width: 100%;" />
+          </div>
+          <div class="experiment-card" style="margin-bottom: 1.5rem;">
+            <img src="static/images/plate_handover_exp_explainer.png" alt="Plate Handover Task" style="width: 100%;" />
+          </div>
+
+          <br>
+
+          <div class="content">
+            <table class="results-table" style="max-width: 650px; margin: 0 auto;">
+              <thead>
+                <tr>
+                  <th>Task</th>
+                  <th>Method</th>
+                  <th># Succ</th>
+                  <th># Half</th>
+                  <th>Rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="task-lift-pot">
+                  <td rowspan="2">Lift Pot</td>
+                  <td>VLA-Adapter</td>
+                  <td>19</td><td>&mdash;</td><td>38.0%</td>
+                </tr>
+                <tr class="task-lift-pot">
+                  <td><b>UVT (Ours)</b></td>
+                  <td><b>27</b></td><td>&mdash;</td><td><b>54.0%</b></td>
+                </tr>
+                <tr class="task-close-marker">
+                  <td rowspan="2">Close Marker</td>
+                  <td>VLA-Adapter</td>
+                  <td>0</td><td>0</td><td>0%</td>
+                </tr>
+                <tr class="task-close-marker">
+                  <td><b>UVT (Ours)</b></td>
+                  <td>0</td><td><b>26</b></td><td><b>26%</b></td>
+                </tr>
+                <tr class="task-plate-handover">
+                  <td rowspan="2">Plate Handover</td>
+                  <td>VLA-Adapter</td>
+                  <td>7</td><td>4</td><td>18%</td>
+                </tr>
+                <tr class="task-plate-handover">
+                  <td><b>UVT (Ours)</b></td>
+                  <td><b>12</b></td><td><b>16</b></td><td><b>40%</b></td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="has-text-centered" style="font-size:0.9rem; color:#666; margin-top:0.5rem;">
+              UVT yields a <span class="improvement">2.2x</span> improvement on Plate Handover
+              and enables marker insertion on Close Marker where the baseline achieves 0% success.
+            </p>
+          </div>
+
+          <br>
+
+          <!-- ===== SIMULATION BLOCK (moved after real world) ===== -->
+          <h3 class="title is-4" id="simulation">Simulation Benchmarks</h3>
           <div class="content has-text-centered">
             <img src="static/images/libero_suites.png" alt="LIBERO Benchmark Suites" style="max-width: 95%;" />
             <p class="has-text-justified">
@@ -212,7 +297,6 @@
 
           <br>
 
-          <!-- Training Efficiency -->
           <h3 class="title is-4">Training Efficiency</h3>
           <div class="content has-text-justified">
             <p>
@@ -343,94 +427,6 @@
             <video autoplay controls muted loop playsinline width="95%">
               <source src="static/videos/uvt_rollouts_grid_v2.mp4?v=2" type="video/mp4">
             </video>
-          </div>
-
-          <br>
-
-          <!-- Real World -->
-          <h3 class="title is-4" id="real-world">Real-World Bimanual Manipulation</h3>
-          <div class="content has-text-centered">
-            <img src="static/images/real_robot_setup.png" alt="Real Robot Setup" style="max-width: 95%;" />
-            <p class="has-text-justified">
-              <b>Real-world evaluation platform.</b> Two robot arms perform three tabletop tasks: Lift Pot,
-              Close Marker, and Plate Handover, each testing different aspects of dual-arm coordination.
-              For each task, we collect 30 demonstrations, fine-tune for 10 GPU hours, and run 50 evaluation trials.
-            </p>
-          </div>
-
-          <br>
-
-          <!-- Real-world experiment video (moved before explainer figures) -->
-          <div class="content has-text-centered" style="margin-top: 1rem;">
-            <p><b>Real-world experiment video overview:</b></p>
-            <video autoplay controls muted loop playsinline width="90%">
-              <source src="static/videos/real_life_exp_explainer.mp4" type="video/mp4">
-            </video>
-          </div>
-
-          <br>
-
-          <!-- Task explainer figures (moved before results table) -->
-          <h3 class="title is-4">Task Demonstrations</h3>
-
-          <div class="experiment-card" style="margin-bottom: 1.5rem;">
-            <img src="static/images/lift_pot_exp_explainer.png" alt="Lift Pot Task" style="width: 100%;" />
-          </div>
-          <div class="experiment-card" style="margin-bottom: 1.5rem;">
-            <img src="static/images/close_marker_exp_explainer.png" alt="Close Marker Task" style="width: 100%;" />
-          </div>
-          <div class="experiment-card" style="margin-bottom: 1.5rem;">
-            <img src="static/images/plate_handover_exp_explainer.png" alt="Plate Handover Task" style="width: 100%;" />
-          </div>
-
-          <br>
-
-          <!-- Real robot results table -->
-          <div class="content">
-            <table class="results-table" style="max-width: 650px; margin: 0 auto;">
-              <thead>
-                <tr>
-                  <th>Task</th>
-                  <th>Method</th>
-                  <th># Succ</th>
-                  <th># Half</th>
-                  <th>Rate</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="task-lift-pot">
-                  <td rowspan="2">Lift Pot</td>
-                  <td>VLA-Adapter</td>
-                  <td>19</td><td>&mdash;</td><td>38.0%</td>
-                </tr>
-                <tr class="task-lift-pot">
-                  <td><b>UVT (Ours)</b></td>
-                  <td><b>27</b></td><td>&mdash;</td><td><b>54.0%</b></td>
-                </tr>
-                <tr class="task-close-marker">
-                  <td rowspan="2">Close Marker</td>
-                  <td>VLA-Adapter</td>
-                  <td>0</td><td>0</td><td>0%</td>
-                </tr>
-                <tr class="task-close-marker">
-                  <td><b>UVT (Ours)</b></td>
-                  <td>0</td><td><b>26</b></td><td><b>26%</b></td>
-                </tr>
-                <tr class="task-plate-handover">
-                  <td rowspan="2">Plate Handover</td>
-                  <td>VLA-Adapter</td>
-                  <td>7</td><td>4</td><td>18%</td>
-                </tr>
-                <tr class="task-plate-handover">
-                  <td><b>UVT (Ours)</b></td>
-                  <td><b>12</b></td><td><b>16</b></td><td><b>40%</b></td>
-                </tr>
-              </tbody>
-            </table>
-            <p class="has-text-centered" style="font-size:0.9rem; color:#666; margin-top:0.5rem;">
-              UVT yields a <span class="improvement">2.2x</span> improvement on Plate Handover
-              and enables marker insertion on Close Marker where the baseline achieves 0% success.
-            </p>
           </div>
 
           <br>
