@@ -63,7 +63,7 @@
               <div class="publication-links">
                 <!-- PDF Link -->
                 <span class="link-block">
-                  <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <a href="https://arxiv.org/pdf/2608.03563" class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="fas fa-file-pdf"></i>
                     </span>
@@ -200,7 +200,7 @@
           <br>
 
           <div class="content has-text-centered" style="margin-top: 1rem;">
-            <p><b>Real-world experiment video overview:</b></p>
+            <p><b>Exemplar policy rollouts of UVT and task setup explanation.</b></p>
             <video autoplay controls muted loop playsinline width="90%">
               <source src="static/videos/real_life_exp_explainer.mp4" type="video/mp4">
             </video>
@@ -250,7 +250,7 @@
                 </tr>
                 <tr class="task-close-marker">
                   <td><b>UVT (Ours)</b></td>
-                  <td>0</td><td><b>26</b></td><td><b>26%</b></td>
+                  <td><b>5</b></td><td><b>28</b></td><td><b>38%</b></td>
                 </tr>
                 <tr class="task-plate-handover">
                   <td rowspan="2">Plate Handover</td>
@@ -264,8 +264,11 @@
               </tbody>
             </table>
             <p class="has-text-centered" style="font-size:0.9rem; color:#666; margin-top:0.5rem;">
-              UVT yields a <span class="improvement">2.2x</span> improvement on Plate Handover
-              and enables marker insertion on Close Marker where the baseline achieves 0% success.
+              Over 50 trials per task, with Rate = (# Succ + 0.5 &times; # Half) / 50. UVT yields a
+              <span class="improvement">2.2x</span> improvement on Plate Handover and reaches
+              <span class="improvement">38%</span> on Close Marker &mdash; grasping both marker and cap
+              consistently, and completing the precision insertion on 5 trials &mdash; where the baseline
+              fails every trial. Lift Pot is scored on full success only.
             </p>
           </div>
 
