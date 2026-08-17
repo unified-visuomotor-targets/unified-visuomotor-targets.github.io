@@ -33,6 +33,7 @@
         <a href="#experiments" data-target="experiments">Experiments</a>
         <ul class="sidebar-sub">
           <li><a href="#real-world" data-target="real-world">Real-World</a></li>
+          <li><a href="#rollouts" data-target="rollouts">Rollouts</a></li>
           <li><a href="#simulation" data-target="simulation">Simulation</a></li>
         </ul>
       </li>
@@ -267,6 +268,96 @@
               UVT grasps both marker and cap consistently, and completes the precision insertion on
               5 trials. Lift Pot is scored on full success only.
             </p>
+          </div>
+
+          <br>
+
+          <!-- ===== UVT ROLLOUT GALLERY ===== -->
+          <h3 class="title is-4" id="rollouts">UVT Rollouts</h3>
+          <div class="content has-text-justified">
+            <p>
+              Uncut policy rollouts on the physical bimanual platform. Select a task to view its rollouts.
+            </p>
+          </div>
+
+          <div class="task-switcher" data-task-switcher>
+            <div class="task-switcher-title">Task Selection</div>
+            <div class="task-switcher-button-row">
+              <button class="task-switcher-button is-active" type="button"
+                      data-task-button="pot" aria-controls="task-panel-pot" aria-pressed="true">
+                <span class="task-switcher-button-icon" aria-hidden="true">&#127858;</span>
+                <span>Lift Pot</span>
+              </button>
+              <button class="task-switcher-button" type="button"
+                      data-task-button="plate" aria-controls="task-panel-plate" aria-pressed="false">
+                <span class="task-switcher-button-icon" aria-hidden="true">&#127869;</span>
+                <span>Plate Handover</span>
+              </button>
+              <button class="task-switcher-button" type="button"
+                      data-task-button="marker" aria-controls="task-panel-marker" aria-pressed="false">
+                <span class="task-switcher-button-icon" aria-hidden="true">&#128397;</span>
+                <span>Close Marker</span>
+              </button>
+            </div>
+
+            <div class="task-switcher-panels">
+              <article class="task-panel is-active" id="task-panel-pot" data-task-panel="pot">
+                <div class="policy-rollout-grid">
+                  <div class="policy-rollout-card">
+                    <h4 class="policy-rollout-title">UVT Rollout 1</h4>
+                    <video class="policy-rollout-video" autoplay controls muted loop playsinline preload="metadata">
+                      <source src="static/videos/rollouts/pot_1.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="policy-rollout-card">
+                    <h4 class="policy-rollout-title">UVT Rollout 2</h4>
+                    <video class="policy-rollout-video" autoplay controls muted loop playsinline preload="metadata">
+                      <source src="static/videos/rollouts/pot_2.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="policy-rollout-card">
+                    <h4 class="policy-rollout-title">UVT Rollout 3</h4>
+                    <video class="policy-rollout-video" autoplay controls muted loop playsinline preload="metadata">
+                      <source src="static/videos/rollouts/pot_3.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+              </article>
+
+              <article class="task-panel" id="task-panel-plate" data-task-panel="plate">
+                <div class="policy-rollout-grid">
+                  <div class="policy-rollout-card">
+                    <h4 class="policy-rollout-title">UVT Rollout 1</h4>
+                    <video class="policy-rollout-video" autoplay controls muted loop playsinline preload="metadata">
+                      <source src="static/videos/rollouts/plate_1.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="policy-rollout-card">
+                    <h4 class="policy-rollout-title">UVT Rollout 2</h4>
+                    <video class="policy-rollout-video" autoplay controls muted loop playsinline preload="metadata">
+                      <source src="static/videos/rollouts/plate_2.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="policy-rollout-card">
+                    <h4 class="policy-rollout-title">UVT Rollout 3</h4>
+                    <video class="policy-rollout-video" autoplay controls muted loop playsinline preload="metadata">
+                      <source src="static/videos/rollouts/plate_3.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+              </article>
+
+              <article class="task-panel" id="task-panel-marker" data-task-panel="marker">
+                <div class="policy-rollout-grid is-single">
+                  <div class="policy-rollout-card">
+                    <h4 class="policy-rollout-title">UVT Rollout 1</h4>
+                    <video class="policy-rollout-video" autoplay controls muted loop playsinline preload="metadata">
+                      <source src="static/videos/rollouts/marker_1.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+              </article>
+            </div>
           </div>
 
           <br>
@@ -598,6 +689,50 @@
             behavior: 'smooth'
           });
           setTimeout(() => { clickLock = false; }, 800);
+        });
+      });
+    });
+  </script>
+
+  <script>
+    // Rollout gallery task switcher
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('[data-task-switcher]').forEach(function(switcher) {
+        const buttons = Array.from(switcher.querySelectorAll('[data-task-button]'));
+        const panels = Array.from(switcher.querySelectorAll('[data-task-panel]'));
+
+        function selectTask(taskName) {
+          buttons.forEach(function(button) {
+            const isActive = button.getAttribute('data-task-button') === taskName;
+            button.classList.toggle('is-active', isActive);
+            button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+          });
+
+          panels.forEach(function(panel) {
+            const isActive = panel.getAttribute('data-task-panel') === taskName;
+            panel.classList.toggle('is-active', isActive);
+            // Only the visible panel keeps playing, so hidden clips don't burn bandwidth
+            panel.querySelectorAll('video').forEach(function(video) {
+              if (isActive) {
+                const played = video.play();
+                if (played && played.catch) played.catch(function() {});
+              } else {
+                video.pause();
+              }
+            });
+          });
+        }
+
+        buttons.forEach(function(button) {
+          button.addEventListener('click', function() {
+            selectTask(button.getAttribute('data-task-button'));
+          });
+        });
+
+        // Pause the clips in panels that start hidden
+        panels.forEach(function(panel) {
+          if (panel.classList.contains('is-active')) return;
+          panel.querySelectorAll('video').forEach(function(video) { video.pause(); });
         });
       });
     });
