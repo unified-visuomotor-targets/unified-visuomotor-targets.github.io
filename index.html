@@ -174,7 +174,7 @@
             <p>
               This loss anchors the policy's internal representation to the unified visuomotor target space
               while ensuring decoded outputs remain consistent with executable joint commands.
-              The modification changes <b>only the prediction target and loss</b> &mdash; the backbone VLA
+              The modification changes <b>only the prediction target and loss</b>: the backbone VLA
               architecture remains unchanged, making UVT compatible with both regression-style and
               diffusion-based VLA policies.
             </p>
@@ -209,20 +209,6 @@
             <video autoplay controls muted loop playsinline width="90%">
               <source src="static/videos/real_life_exp_explainer.mp4" type="video/mp4">
             </video>
-          </div>
-
-          <br>
-
-          <h3 class="title is-4">Task Demonstrations</h3>
-
-          <div class="experiment-card" style="margin-bottom: 1.5rem;">
-            <img src="static/images/lift_pot_exp_explainer.png" alt="Lift Pot Task" style="width: 100%;" />
-          </div>
-          <div class="experiment-card" style="margin-bottom: 1.5rem;">
-            <img src="static/images/close_marker_exp_explainer.png" alt="Close Marker Task" style="width: 100%;" />
-          </div>
-          <div class="experiment-card" style="margin-bottom: 1.5rem;">
-            <img src="static/images/plate_handover_exp_explainer.png" alt="Plate Handover Task" style="width: 100%;" />
           </div>
 
           <br>
@@ -271,9 +257,9 @@
             <p class="has-text-centered" style="font-size:0.9rem; color:#666; margin-top:0.5rem;">
               Over 50 trials per task, with Rate = (# Succ + 0.5 &times; # Half) / 50. UVT yields a
               <span class="improvement">2.2x</span> improvement on Plate Handover and reaches
-              <span class="improvement">38%</span> on Close Marker &mdash; grasping both marker and cap
-              consistently, and completing the precision insertion on 5 trials &mdash; where the baseline
-              fails every trial. Lift Pot is scored on full success only.
+              <span class="improvement">38%</span> on Close Marker, where the baseline fails every trial:
+              UVT grasps both marker and cap consistently, and completes the precision insertion on
+              5 trials. Lift Pot is scored on full success only.
             </p>
           </div>
 
@@ -284,7 +270,7 @@
           <div class="content has-text-centered">
             <img src="static/images/libero_suites.png" alt="LIBERO Benchmark Suites" style="max-width: 95%;" />
             <p class="has-text-justified">
-              <b>LIBERO benchmark suites.</b> The four suites &mdash; Object, Spatial, Goal, and Long &mdash; each
+              <b>LIBERO benchmark suites.</b> The four suites (Object, Spatial, Goal, and Long) each
               include distinct manipulation challenges. LIBERO-Plus provides additional environmental
               perturbations to test model robustness.
             </p>
@@ -358,7 +344,7 @@
               </tbody>
             </table>
             <p class="has-text-centered" style="font-size:0.9rem; color:#666;">
-              At 10k steps on LIBERO-Plus Spatial, UVT achieves <b>81.5%</b> vs. baseline's <b>34.0%</b> &mdash;
+              At 10k steps on LIBERO-Plus Spatial, UVT achieves <b>81.5%</b> vs. baseline's <b>34.0%</b>,
               a <span class="improvement">+47.5%</span> improvement under identical training budgets.
             </p>
           </div>
