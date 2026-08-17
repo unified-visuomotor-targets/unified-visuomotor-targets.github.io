@@ -25,14 +25,19 @@
 
   <!-- ==================== SIDEBAR NAV ==================== -->
   <nav class="sidebar-nav" id="sidebar-nav">
-    <div class="sidebar-title">Sections</div>
+    <div class="sidebar-title">Contents</div>
     <ul>
       <li><a href="#abstract" data-target="abstract">Abstract</a></li>
       <li><a href="#method" data-target="method">Method</a></li>
-      <li><a href="#real-world" data-target="real-world">Real-World</a></li>
-      <li><a href="#simulation" data-target="simulation">Simulation</a></li>
-      <li><a href="#ablation" data-target="ablation">Ablation</a></li>
-      <li><a href="#analysis" data-target="analysis">Analysis</a></li>
+      <li>
+        <a href="#experiments" data-target="experiments">Experiments</a>
+        <ul class="sidebar-sub">
+          <li><a href="#real-world" data-target="real-world">Real-World</a></li>
+          <li><a href="#simulation" data-target="simulation">Simulation</a></li>
+          <li><a href="#ablation" data-target="ablation">Ablation</a></li>
+          <li><a href="#analysis" data-target="analysis">Analysis</a></li>
+        </ul>
+      </li>
       <li><a href="#BibTeX" data-target="BibTeX">BibTeX</a></li>
     </ul>
   </nav>
@@ -48,15 +53,15 @@
             </h1>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
-                <a href="https://defisch.github.io/">Zhenyang Feng</a><sup>1</sup>,
+                <a href="https://defisch.github.io/">Zhenyang Feng</a>,
               </span>
               <span class="author-block">
-                <a href="https://unnat.github.io/">Unnat Jain</a><sup>1</sup>
+                <a href="https://unnat.github.io/">Unnat Jain</a>
               </span>
             </div>
 
             <div class="is-size-5 publication-authors">
-              <span class="author-block"><sup>1</sup>University of California, Irvine</span>
+              <span class="author-block">University of California, Irvine</span>
             </div>
 
             <div class="column has-text-centered">
@@ -180,7 +185,7 @@
   </section>
 
   <!-- ==================== EXPERIMENTS ==================== -->
-  <section class="section">
+  <section class="section" id="experiments">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column is-full-width">
@@ -539,9 +544,17 @@
       }
 
       function setActive(id) {
-        navLinks.forEach(link => {
-          link.classList.toggle('active', link.getAttribute('data-target') === id);
-        });
+        navLinks.forEach(link => link.classList.remove('active', 'ancestor-active'));
+        const link = Array.from(navLinks).find(l => l.getAttribute('data-target') === id);
+        if (!link) return;
+        link.classList.add('active');
+        // Keep the parent entry lit while one of its sub-sections is current.
+        const li = link.parentElement;
+        const parentLi = li && li.parentElement ? li.parentElement.closest('li') : null;
+        if (parentLi) {
+          const parentLink = parentLi.querySelector('a');
+          if (parentLink) parentLink.classList.add('ancestor-active');
+        }
       }
 
       let clickLock = false;

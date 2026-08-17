@@ -427,6 +427,30 @@ body {
   background: rgba(42, 91, 216, 0.07);
 }
 
+/* Nested sub-sections */
+.sidebar-nav .sidebar-sub {
+  list-style: none;
+  margin: 2px 0 4px 12px;
+  padding-left: 8px;
+  border-left: 1px solid #eaeaea;
+}
+
+.sidebar-nav .sidebar-sub a {
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  color: #999;
+}
+
+.sidebar-nav .sidebar-sub a:hover {
+  color: #444;
+}
+
+/* Parent stays lit while one of its children is the current section */
+.sidebar-nav a.ancestor-active {
+  color: #444;
+  font-weight: 600;
+}
+
 /* Hide sidebar on smaller screens */
 @media screen and (max-width: 1280px) {
   .sidebar-nav {
