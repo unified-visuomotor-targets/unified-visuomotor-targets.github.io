@@ -202,6 +202,189 @@ body {
   font-size: 0.85rem;
 }
 
+/* Interactive u_t decode plot */
+.ut-plot {
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  padding: 1rem 1.25rem 1.25rem;
+  background: #fff;
+}
+
+.ut-plot-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.ut-dim-group,
+.ut-time-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ut-control-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #999;
+  margin-right: 0.25rem;
+}
+
+.ut-dim-button {
+  font-family: inherit;
+  font-size: 0.9rem;
+  padding: 4px 12px;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  background: #fff;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ut-dim-button:hover {
+  border-color: #bbb;
+  color: #222;
+}
+
+.ut-dim-button.active {
+  background: #2a5bd8;
+  border-color: #2a5bd8;
+  color: #fff;
+  font-weight: 600;
+}
+
+.ut-play-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #444;
+  cursor: pointer;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ut-play-button:hover {
+  border-color: #2a5bd8;
+  color: #2a5bd8;
+}
+
+.ut-slider {
+  width: 170px;
+  accent-color: #2a5bd8;
+  cursor: pointer;
+}
+
+.ut-time-readout {
+  font-size: 0.85rem;
+  color: #666;
+  min-width: 3.6em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ut-panels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.ut-panel {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.ut-panel-title {
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.2rem;
+}
+
+.ut-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.ut-grid {
+  stroke: #eee;
+  stroke-width: 1;
+}
+
+.ut-frame {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1;
+}
+
+.ut-cursor {
+  stroke: #999;
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.ut-line {
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.ut-line-ghost {
+  stroke-width: 1.5;
+  opacity: 0.15;
+}
+
+.ut-tick {
+  font-size: 10px;
+  fill: #888;
+}
+
+.ut-tick-y {
+  text-anchor: end;
+}
+
+.ut-tick-x {
+  text-anchor: middle;
+}
+
+.ut-axis-title {
+  font-size: 12px;
+  fill: #555;
+  text-anchor: middle;
+}
+
+.ut-legend {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.ut-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.ut-swatch {
+  width: 14px;
+  height: 3px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
 /* Sidebar navigation */
 .sidebar-nav {
   position: fixed;

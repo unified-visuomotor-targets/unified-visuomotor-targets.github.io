@@ -88,24 +88,6 @@
   </section>
 
 
-  <!-- ==================== TEASER ==================== -->
-  <section class="hero teaser" style="padding: 0;">
-    <div class="container is-max-desktop">
-      <div class="hero-body" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
-        <div class="has-text-centered">
-          <img src="static/images/teaser_figure.png" style="max-width: 55%; display: block; margin: 0 auto;" alt="UVT Teaser" />
-        </div>
-        <p class="has-text-centered" style="margin-top: 0.75rem; margin-bottom: 0; font-size: 1.05rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-          <b>UVT</b> unifies two complementary supervision signals &mdash; <span style="color:#f26722;"><b>discrete visual dynamics</b></span>
-          from a pretrained latent action model and <span style="color:#2a5bd8;"><b>continuous robot actions</b></span> from
-          demonstrations &mdash; into a single latent prediction target. By training VLAs to predict this unified target instead of
-          raw joint commands, we accelerate convergence and improve policy performance, all without changing the backbone architecture
-          or collecting additional data.
-        </p>
-      </div>
-    </div>
-  </section>
-
   <!-- ==================== ABSTRACT ==================== -->
   <section class="section" id="abstract">
     <div class="container is-max-desktop">
@@ -497,14 +479,16 @@
 
           <br>
 
-          <div class="content has-text-centered">
-            <img src="static/images/sampled_ut_decode_animation.gif" alt="Decoded u_t Animation" style="max-width: 80%;" />
-            <p class="has-text-justified">
+          <div class="content">
+            <div class="ut-plot" id="ut-decode-plot"></div>
+            <p class="has-text-justified" style="margin-top: 1rem;">
               <b>Temporal profiles of decoded and raw action trajectories.</b> Robot actions decoded from
               sampled <i>u<sub>t</sub></i> are noticeably smoother, exhibiting fewer high-frequency
               fluctuations while preserving the overall motion trend. This suggests that the learned
               <i>u<sub>t</sub></i> captures underlying motion dynamics while filtering out low-level
-              actuator noise.
+              actuator noise. Pick an action dimension and drag the slider (or press play) to step through
+              the chunk; the three chunks shown are the roughest in LIBERO-Long by total variation and
+              direction-change count, and both panels share a y-axis for direct comparison.
             </p>
           </div>
 
@@ -592,6 +576,9 @@
       });
     });
   </script>
+
+  <script src="./static/js/ut_decode_data.js"></script>
+  <script src="./static/js/ut_decode_plot.js"></script>
 
 </body>
 
