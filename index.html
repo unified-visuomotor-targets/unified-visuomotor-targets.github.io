@@ -71,6 +71,10 @@
               <span class="author-block">University of California, Irvine</span>
             </div>
 
+            <div class="is-size-5 publication-venue">
+              Accepted at IROS 2026
+            </div>
+
             <div class="column has-text-centered">
               <div class="publication-links">
                 <!-- PDF Link -->
@@ -99,6 +103,26 @@
     </div>
   </section>
 
+
+  <!-- ==================== TEASER ==================== -->
+  <section class="hero teaser" style="padding: 0;">
+    <div class="container is-max-desktop">
+      <div class="hero-body" style="padding-top: 0.5rem; padding-bottom: 1.5rem;">
+        <div class="has-text-centered">
+          <video autoplay controls muted loop playsinline
+                 style="width: 92%; border-radius: 6px;">
+            <source src="static/videos/real_life_exp_explainer.mp4" type="video/mp4">
+          </video>
+          <p style="margin-top: 0.85rem; margin-bottom: 0; font-size: 1.05rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+            <b>UVT</b> replaces the raw action target with a single latent that encodes
+            <span style="color:#f26722;"><b>visual dynamics</b></span> and
+            <span style="color:#2a5bd8;"><b>robot actions</b></span> together, improving real bimanual
+            manipulation with no architectural changes and no additional data.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ==================== ABSTRACT ==================== -->
   <section class="section" id="abstract">
@@ -207,15 +231,6 @@
               Close Marker, and Plate Handover, each testing different aspects of dual-arm coordination.
               For each task, we collect 30 demonstrations, fine-tune for 10 GPU hours, and run 50 evaluation trials.
             </p>
-          </div>
-
-          <br>
-
-          <div class="content has-text-centered" style="margin-top: 1rem;">
-            <p><b>Exemplar policy rollouts of UVT and task setup explanation.</b></p>
-            <video autoplay controls muted loop playsinline width="90%">
-              <source src="static/videos/real_life_exp_explainer.mp4" type="video/mp4">
-            </video>
           </div>
 
           <br>
@@ -605,10 +620,10 @@
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
-      <pre><code>@article{feng2026unified,
+      <pre><code>@inproceedings{feng2026unified,
   title={Unified Visuomotor Targets: Supervising VLAs Beyond Physical Actions},
   author={Feng, Zhenyang and Jain, Unnat},
-  journal={arXiv preprint arXiv:2608.03563},
+  booktitle={IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
   year={2026}
 }</code></pre>
     </div>
