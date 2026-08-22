@@ -380,6 +380,21 @@
           <!-- ===== SIMULATION BLOCK (moved after real world) ===== -->
           <h3 class="title is-4" id="simulation">Simulation Benchmarks</h3>
           <div class="content has-text-centered">
+            <video autoplay controls muted loop playsinline width="95%">
+              <source src="static/videos/uvt_blender_rollouts.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-justified">
+              <b>UVT policy rollouts on LIBERO.</b> One successful rollout per suite, rendered offline
+              in Blender Cycles from the recorded simulator state. Below each rollout we plot the
+              <i>x</i>, <i>y</i>, and <i>z</i> components of the action chunk the policy actually
+              executed at that timestep. The policy produces smooth, task-coherent motions while
+              completing diverse manipulation objectives.
+            </p>
+          </div>
+
+          <br>
+
+          <div class="content has-text-centered">
             <img src="static/images/libero_suites.png" alt="LIBERO Benchmark Suites" style="max-width: 95%;" />
             <p class="has-text-justified">
               <b>LIBERO benchmark suites.</b> The four suites (Object, Spatial, Goal, and Long) each
@@ -503,25 +518,6 @@
                 </tr>
               </tbody>
             </table>
-          </div>
-
-          <br>
-
-          <!-- LIBERO Rollouts Video -->
-          <h3 class="title is-4">LIBERO Simulation Rollouts</h3>
-          <div class="content has-text-justified">
-            <p>
-              Successful UVT policy rollouts on each of the four LIBERO suites, rendered offline in
-              Blender Cycles from the recorded simulator state. Below each rollout we plot the
-              <i>x</i>, <i>y</i>, and <i>z</i> components of the action chunk the policy actually
-              executed at that timestep. The policy produces smooth, task-coherent motions while
-              completing diverse manipulation objectives.
-            </p>
-          </div>
-          <div class="content has-text-centered">
-            <video autoplay controls muted loop playsinline width="95%">
-              <source src="static/videos/uvt_blender_rollouts.mp4" type="video/mp4">
-            </video>
           </div>
 
         </div>
