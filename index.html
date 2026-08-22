@@ -511,14 +511,16 @@
           <h3 class="title is-4">LIBERO Simulation Rollouts</h3>
           <div class="content has-text-justified">
             <p>
-              Example UVT policy rollouts across LIBERO tasks, each shown alongside its corresponding
-              decoded action trajectory. The policy produces smooth, task-coherent motions while
-              successfully completing diverse manipulation objectives.
+              Successful UVT policy rollouts on each of the four LIBERO suites, rendered offline in
+              Blender Cycles from the recorded simulator state. Below each rollout we plot the
+              <i>x</i>, <i>y</i>, and <i>z</i> components of the action chunk the policy actually
+              executed at that timestep. The policy produces smooth, task-coherent motions while
+              completing diverse manipulation objectives.
             </p>
           </div>
           <div class="content has-text-centered">
             <video autoplay controls muted loop playsinline width="95%">
-              <source src="static/videos/uvt_rollouts_grid_v2.mp4?v=2" type="video/mp4">
+              <source src="static/videos/uvt_blender_rollouts.mp4" type="video/mp4">
             </video>
           </div>
 
